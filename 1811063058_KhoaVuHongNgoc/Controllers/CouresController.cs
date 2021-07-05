@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using _1811063058_KhoaVuHongNgoc.Models;
 using _1811063058_KhoaVuHongNgoc.ViewModels;
+using Microsoft.AspNet.Identity;
 
 namespace _1811063058_KhoaVuHongNgoc.Controllers
 {
@@ -18,11 +19,22 @@ namespace _1811063058_KhoaVuHongNgoc.Controllers
         // GET: Coures
         public ActionResult Create()
         {
-            var viewModel = new CourseViewModel
+            return View();
+        }
+        [Authorize]
+        [HttpPost]
+        public ActionResult Create(CourseViewModel viewModel)
+        {
+            var course = new Course
             {
-                categories = _dbContext.categories.ToList()
+                LecturerId = User.Identity.GetUserId(),
+                DateTime = viewModel.GetDateTime(),
+                CategoryId = viewModel.Category,
+                Place = viewModel.Place
             };
-            return View(viewModel);
+            _dbContext.Courses.Add(course);
+            _dbContext.SaveChanges();
+            return RedirectToAction("Index", "Home");
         }
     }
 }
