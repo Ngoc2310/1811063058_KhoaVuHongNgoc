@@ -9,22 +9,32 @@ using Microsoft.AspNet.Identity;
 
 namespace _1811063058_KhoaVuHongNgoc.Controllers
 {
-    public class CouresController : Controller
+    public class CourseController : Controller
     {
         private readonly ApplicationDbContext _dbContext;
-        public CouresController()
+        public CourseController()
         {
             _dbContext = new ApplicationDbContext();
         }
         // GET: Coures
         public ActionResult Create()
         {
-            return View();
+            var viewModel = new CourseViewModel
+            {
+                Categories = _dbContext.Categories.ToList()
+            };
+            return View(viewModel);
         }
         [Authorize]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(CourseViewModel viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                viewModel.Categories = _dbContext.Categories.ToList();
+                return View("Create", viewModel);
+            }
             var course = new Course
             {
                 LecturerId = User.Identity.GetUserId(),
