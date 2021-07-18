@@ -12,7 +12,7 @@ namespace _1811063058_KhoaVuHongNgoc.ViewModels
         public override bool IsValid(object value)
         {
             DateTime dateTime;
-            var IsValid = DateTime.TryParseExact(Convert.ToString(value), "dd/MM/yyyy", CultureInfo.CurrentCulture, DateTimeStyles.None, out dateTime);
+            var IsValid = DateTime.TryParseExact(Convert.ToString(value), "MM/dd/yyyy", CultureInfo.CurrentCulture, DateTimeStyles.None, out dateTime);
 
             return (IsValid && dateTime > DateTime.Now);
         }
