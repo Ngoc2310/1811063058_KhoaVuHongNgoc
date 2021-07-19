@@ -21,9 +21,8 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Add Course", "Create", "Courses")</li>
+                    <li>@Html.ActionLink("Category", "Index", "Categories")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -34,7 +33,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p style="position: absolute; left: 100px;">&copy; @DateTime.Now.Year - BigSchool ASP.NET Application</p>
+            <p style="position: absolute; left: 100px;">&copy; @DateTime.Now.Year - BigSchool - Hồng Ngọc</p>
         </footer>
     </div>
 

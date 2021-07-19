@@ -10,6 +10,8 @@ namespace _1811063058_KhoaVuHongNgoc.ViewModels
     public class CourseViewModel
     {
         public int Id { get; set; }
+        public IEnumerable<Course> UpcommingCourses { get; set; }
+        public bool ShowAction { get; set; }
         [Required]
         public string Place { get; set; }
         [Required]
@@ -21,6 +23,8 @@ namespace _1811063058_KhoaVuHongNgoc.ViewModels
         [Required]
         public byte Category { get; set; }
         public IEnumerable<Category> Categories { get; set; }
+        public IEnumerable<Following> Followings { get; set; }
+        public IEnumerable<Attendance> Attendances { get; set; }
         public string Heading { get; set; }
         public string Action
         {

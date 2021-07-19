@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Data.Entity;
 using _1811063058_KhoaVuHongNgoc.Models;
 using _1811063058_KhoaVuHongNgoc.ViewModels;
+using Microsoft.AspNet.Identity;
 
 namespace _1811063058_KhoaVuHongNgoc.Controllers
 {
@@ -18,14 +19,17 @@ namespace _1811063058_KhoaVuHongNgoc.Controllers
         }
         public ActionResult Index()
         {
+            var user = User.Identity.GetUserId();
             var upcommingCourses = _dbContext.Courses
                 .Include(c => c.Lecturer)
                 .Include(c => c.Category)
                 .Where(c => c.DateTime > DateTime.Now);
 
-            var viewModel = new CoursesViewModel
+            var viewModel = new CourseViewModel
             {
                 UpcommingCourses = upcommingCourses,
+                Followings = _dbContext.Followings.Where(a => a.FolloweeId == user).ToList(),
+                Attendances = _dbContext.Attendances.Where(a => a.AttendeeId == user).ToList(),
                 ShowAction = User.Identity.IsAuthenticated
             };
             return View(viewModel);

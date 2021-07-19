@@ -27,12 +27,15 @@
                 </span>
             </div>
             <div class="action">
-                <a href="@Url.Action("Edit","Courses", new { id = course.Id})">
-                    Edit
-                </a>
-                <a href="#" class="js-cancel-course" data-course-id="@course.Id">
-                    Delete
-                </a>
+                @if (course.IsCanceled == false)
+                {
+                    <a href="@Url.Action("Edit", "Courses", new { id = course.Id })">Edit|</a>
+                    <a href="#" class="js-cancel-course" data-course-id="@course.Id">Cancel</a>
+                }
+                else
+                {
+                    <span class="label label-warning">Canceled</span>
+                }
             </div>
         </li>
     }
